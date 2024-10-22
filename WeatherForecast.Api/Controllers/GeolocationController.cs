@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using WeatherForecast.Core.Models.GeoLocation;
 using WeatherForecast.Core.Services;
 
 namespace WeatherForecastAPI.Controllers;
@@ -16,6 +17,8 @@ public class GeolocationController : ControllerBase
     }
     
     [HttpGet]
+    [Produces("application/json")]
+    [ProducesResponseType(typeof(GeoLocationDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetPreviouslyUsed(int pageNumber = 1, int pageSize= 10)
     {
         var result = await _geoLocationService.GetPreviouslyUsed(pageNumber, pageSize);

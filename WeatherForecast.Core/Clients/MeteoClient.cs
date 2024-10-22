@@ -1,9 +1,11 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.Options;
 using RestSharp;
 using WeatherForecast.Core.Clients.Configuration;
 using WeatherForecast.Core.Clients.Providers;
 using WeatherForecast.Core.Helpers;
+using WeatherForecast.Core.Models.WeatherForecast;
 using WeatherForecast.Shared.Exceptions;
 
 namespace WeatherForecast.Core.Clients;
@@ -12,24 +14,21 @@ public class MeteoClient : IMeteoClient
 {
     private readonly IJsonHelper _jsonHelper;
     private readonly IRestClient _restClient;
+    private readonly MeteoConfiguration _configuration;
 
-    public MeteoClient(IRestClientProvider<MeteoConfiguration> meteoClient, IJsonHelper jsonHelper)
+    public MeteoClient(IRestClientProvider<MeteoConfiguration> meteoClient, IJsonHelper jsonHelper, IOptions<MeteoConfiguration> configuration)
     {
         _jsonHelper = jsonHelper;
         _restClient = meteoClient.Get();
+        _configuration = configuration.Value;
     }
 
-    public async Task<TResponse?> GetWeatherForecastAsync<TResponse>(string path,
-        IDictionary<string, string>? queryString = null) where TResponse : class
+    public async Task<Models.Clients.MeteoClient.WeatherForecast?> GetWeatherForecastAsync(AddWeatherForecast addWeatherForecast)
     {
-        var restRequest = new RestRequest(path, Method.Get);
-        if (queryString != null)
-        {
-            foreach (var item in queryString)
-            {
-                restRequest.AddQueryParameter(item.Key, item.Value);
-            }
-        }
+        var restRequest = new RestRequest(_configuration.GetWeatherForecastPath, Method.Get);
+        restRequest.AddQueryParameter("latitude", addWeatherForecast.Latitude.ToString());
+        restRequest.AddQueryParameter("longitude", addWeatherForecast.Longitude.ToString());
+        restRequest.AddQueryParameter("current", addWeatherForecast.Current.ToString());
         
         var restResponse = await _restClient.ExecuteAsync(restRequest);
         if (!restResponse.IsSuccessful)
@@ -38,6 +37,6 @@ public class MeteoClient : IMeteoClient
                 "Cannot get weather forecast!");
         }
 
-        return _jsonHelper.Deserialize<TResponse>(restResponse.Content);
+        return _jsonHelper.Deserialize<Models.Clients.MeteoClient.WeatherForecast>(restResponse.Content);
     }
 }

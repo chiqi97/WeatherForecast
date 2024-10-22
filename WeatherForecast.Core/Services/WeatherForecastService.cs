@@ -11,28 +11,18 @@ public class WeatherForecastService : IWeatherForecastService
 {
     private readonly IWeatherRepository _weatherRepository;
     private readonly IMeteoClient _meteoClient;
-    private readonly MeteoConfiguration _configuration;
-    private readonly ICoordinateRepository _coordinateRepository;
 
-    public WeatherForecastService(IWeatherRepository weatherRepository, ICoordinateRepository coordinateRepository, IMeteoClient meteoClient, IOptions<MeteoConfiguration> configuration)
+    public WeatherForecastService(IWeatherRepository weatherRepository, IMeteoClient meteoClient)
     {
         _weatherRepository = weatherRepository;
         _meteoClient = meteoClient;
-        _configuration = configuration.Value;
-        _coordinateRepository = coordinateRepository;
     }
 
     public async Task<int> AddWeatherForecastAndCoordinatesAsync(AddWeatherForecast addWeatherForecast)
     {
-        var queryString = new Dictionary<string, string>()
-        {
-            {"latitude", addWeatherForecast.Latitude.ToString()},
-            {"longitude", addWeatherForecast.Longitude.ToString()},
-            {"current", addWeatherForecast.Current.ToString()}
-        };
         
         var weatherForecast = await 
-            _meteoClient.GetWeatherForecastAsync<Models.Clients.MeteoClient.WeatherForecast>(_configuration.GetWeatherForecastPath, queryString);
+            _meteoClient.GetWeatherForecastAsync(addWeatherForecast);
         var weatherEntity = new Data.Entities.WeatherForecast()
         {
             Time = weatherForecast?.Current?.Time ?? TimeProvider.System.GetUtcNow().UtcDateTime,
@@ -41,7 +31,7 @@ public class WeatherForecastService : IWeatherForecastService
 
         };
      
-        return  await _coordinateRepository.AddOrUpdateAsync(addWeatherForecast.Latitude, addWeatherForecast.Longitude, weatherEntity);
+        return  await _weatherRepository.AddOrUpdateAsync(addWeatherForecast.Latitude, addWeatherForecast.Longitude, weatherEntity);
     }
 
     public async Task<WeatherForecastDto> GetByIdAsync(int id)

@@ -40,9 +40,9 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-using var scope = app.Services.CreateScope();
-var db = scope.ServiceProvider.GetRequiredService<WeatherForecastDbContext>();
-db.Database.Migrate();
+//using var scope = app.Services.CreateScope();
+//var db = scope.ServiceProvider.GetRequiredService<WeatherForecastDbContext>();
+//db.Database.Migrate();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 

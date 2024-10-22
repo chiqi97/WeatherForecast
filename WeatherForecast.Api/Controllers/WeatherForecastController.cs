@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WeatherForecast.Core.Models.Controllers;
 using WeatherForecast.Core.Models.WeatherForecast;
 using WeatherForecast.Core.Services;
 
@@ -16,13 +17,16 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpPost]
+    [Produces("application/json")]
+    [ProducesResponseType(typeof(IdResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> Add(AddWeatherForecast addWeatherForecast)
     {
         var result = await _weatherForecastService.AddWeatherForecastAndCoordinatesAsync(addWeatherForecast);
-        return Ok(result);
+        return Ok(new IdResponse(result));
     }
 
     [HttpDelete]
+    [Produces("application/json")]
     public async Task<IActionResult> Delete(int id)
     {
         await _weatherForecastService.DeleteAsync(id);
@@ -30,6 +34,8 @@ public class WeatherForecastController : ControllerBase
     }
     
     [HttpGet]
+    [Produces("application/json")]
+    [ProducesResponseType(typeof(WeatherForecastDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get(int id)
     {
         var result = await _weatherForecastService.GetByIdAsync(id);

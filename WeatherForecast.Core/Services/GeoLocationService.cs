@@ -16,7 +16,11 @@ public class GeoLocationService : IGeoLocationService
 
     public async Task<IList<GeoLocationDto>> GetPreviouslyUsed(int pageNumber = 1, int pageSize = 10)
     {
-        var coordinates = await _coordinateRepository.GetQuery().Select(c => new Coordinate()
+        var coordinates = await _coordinateRepository.GetQuery()
+            .OrderByDescending(x => x.Id)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .Select(c => new Coordinate()
             {
                 Id = c.Id,
                 Longitude = c.Longitude,

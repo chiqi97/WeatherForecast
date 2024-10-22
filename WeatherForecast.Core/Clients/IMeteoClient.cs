@@ -1,7 +1,8 @@
+using WeatherForecast.Core.Models.WeatherForecast;
+
 namespace WeatherForecast.Core.Clients;
 
 public interface IMeteoClient
 {
-    Task<TResponse?> GetWeatherForecastAsync<TResponse>(string path,
-        IDictionary<string, string>? queryString = null) where TResponse : class;
+    Task<Models.Clients.MeteoClient.WeatherForecast?> GetWeatherForecastAsync(AddWeatherForecast weatherForecast);
 }

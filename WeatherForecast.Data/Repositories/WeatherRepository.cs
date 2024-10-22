@@ -10,6 +10,19 @@ public class WeatherRepository : BaseRepository<Entities.WeatherForecast>, IWeat
     {
     }
 
+    public async Task<int> AddOrUpdateAsync(decimal latitude, decimal longitude, Entities.WeatherForecast weatherForecastEntity)
+    {
+        var existingCoordinate = await _context.Coordinates.FirstOrDefaultAsync(c => c.Longitude == longitude && c.Latitude == latitude);
+        if (existingCoordinate == null)
+        {
+            weatherForecastEntity.Coordinate = new Coordinate() {Latitude = latitude, Longitude = longitude};
+            return await AddEntityAsync(weatherForecastEntity);
+        }
+
+        weatherForecastEntity.CoordinateId = existingCoordinate.Id;
+        return await AddEntityAsync(weatherForecastEntity);
+    }
+
     public async Task<Entities.WeatherForecast> GetById(int id)
     {
         var weatherForecast = await _context.WeatherForecasts

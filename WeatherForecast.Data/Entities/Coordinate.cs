@@ -2,7 +2,7 @@
 
 public record Coordinate : Entity
 {
-    public double Longitude  { get; set; }
-    public double Latitude  { get; set; }
+    public decimal Longitude  { get; set; }
+    public decimal Latitude  { get; set; }
     public ICollection<WeatherForecast> WeatherForecasts { get; set; }
 }
