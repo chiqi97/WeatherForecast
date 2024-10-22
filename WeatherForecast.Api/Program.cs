@@ -15,7 +15,7 @@ using WeatherForecastAPI.Middlewares;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ExceptionHandlingMiddleware>();
-builder.Services.AddScoped<IRestClientProvider<MeteoConfiguration>, MeteoRestClientProvider>();
+builder.Services.AddSingleton<IRestClientProvider<MeteoConfiguration>, MeteoRestClientProvider>();
 builder.Services.AddScoped<IWeatherRepository, WeatherRepository>();
 builder.Services.AddScoped<ICoordinateRepository, CoordinateRepository>();
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();

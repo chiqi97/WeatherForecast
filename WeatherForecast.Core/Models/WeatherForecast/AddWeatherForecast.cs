@@ -2,7 +2,7 @@
 
 namespace WeatherForecast.Core.Models.WeatherForecast;
 
-public class AddWeatherForecast
+public record AddWeatherForecast
 {
     [Range(-180d, 180d, ErrorMessage = "Longitude must be between -180 and 180.")]
     public decimal Longitude  { get; set; }

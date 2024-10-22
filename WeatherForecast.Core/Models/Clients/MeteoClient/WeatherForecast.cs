@@ -2,7 +2,7 @@
 
 namespace WeatherForecast.Core.Models.Clients.MeteoClient;
 
-public class WeatherForecast
+public record WeatherForecast
 {
     public string? Timezone { get; set; } 
 

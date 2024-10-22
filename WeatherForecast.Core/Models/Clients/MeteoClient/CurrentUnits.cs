@@ -2,7 +2,7 @@
 
 namespace WeatherForecast.Core.Models.Clients.MeteoClient;
 
-public class CurrentUnits
+public record CurrentUnits
 {
     public string? Time { get; set; } 
 

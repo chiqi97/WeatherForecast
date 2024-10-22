@@ -1,6 +1,6 @@
 ﻿namespace WeatherForecast.Core.Models.Coordinate;
 
-public class CoordinateWeatherDto
+public record CoordinateWeatherDto
 {
     public int Id { get; set; }
     public decimal Longitude  { get; set; }

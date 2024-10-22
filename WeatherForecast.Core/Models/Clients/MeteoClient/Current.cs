@@ -2,7 +2,7 @@
 
 namespace WeatherForecast.Core.Models.Clients.MeteoClient;
 
-public class CurrentWeather
+public record CurrentWeather
 {
     public DateTime? Time { get; set; } 
 

@@ -1,6 +1,6 @@
 ﻿namespace WeatherForecast.Data.Entities;
 
-public record WeatherForecast : Entity
+public class WeatherForecast : Entity
 {
     public double Temperature { get; set; }
     public double Interval { get; set; }

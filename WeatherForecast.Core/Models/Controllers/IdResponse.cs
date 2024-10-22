@@ -1,6 +1,6 @@
 ﻿namespace WeatherForecast.Core.Models.Controllers;
 
-public class IdResponse
+public record IdResponse
 {
     public IdResponse(int id)
     {

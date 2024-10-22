@@ -1,6 +1,6 @@
 ﻿namespace WeatherForecast.Core.Models.GeoLocation;
 
-public class GeoLocationWeatherForecastDto
+public record GeoLocationWeatherForecastDto
 {
     public int Id { get; set; }
     public double Temperature { get; set; }

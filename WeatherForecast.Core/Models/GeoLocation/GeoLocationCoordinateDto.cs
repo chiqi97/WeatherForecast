@@ -1,6 +1,6 @@
 ﻿namespace WeatherForecast.Core.Models.GeoLocation;
 
-public class GeoLocationCoordinateDto
+public record GeoLocationCoordinateDto
 {
     public int Id { get; set; }
     public decimal Latitude { get; set; }

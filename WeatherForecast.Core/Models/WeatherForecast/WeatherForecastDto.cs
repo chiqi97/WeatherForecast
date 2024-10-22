@@ -2,7 +2,7 @@
 
 namespace WeatherForecast.Core.Models.WeatherForecast;
 
-public class WeatherForecastDto
+public record WeatherForecastDto
 {
     public int Id { get; set; }
     public double Temperature { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace WeatherForecast.Data.Entities;
 
-public abstract record Entity
+public abstract class Entity
 {
     public int Id { get; set; }
 }
