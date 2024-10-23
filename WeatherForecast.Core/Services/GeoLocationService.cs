@@ -14,7 +14,7 @@ public class GeoLocationService : IGeoLocationService
         _coordinateRepository = coordinateRepository;
     }
 
-    public async Task<IList<GeoLocationDto>> GetPreviouslyUsed(int pageNumber = 1, int pageSize = 10)
+    public async Task<IList<GeoLocationDto>> GetPreviouslyUsedAsync(int pageNumber = 1, int pageSize = 10)
     {
         var coordinates = await _coordinateRepository.GetQuery()
             .OrderByDescending(x => x.LastRequestTime)

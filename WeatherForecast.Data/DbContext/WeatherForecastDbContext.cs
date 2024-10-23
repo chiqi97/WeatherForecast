@@ -9,11 +9,15 @@ public class WeatherForecastDbContext : Microsoft.EntityFrameworkCore.DbContext
 {
     public DbSet<Entities.WeatherForecast> WeatherForecasts  { get; set; }
     public DbSet<Coordinate> Coordinates  { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    
+    public WeatherForecastDbContext(DbContextOptions<WeatherForecastDbContext> options) : base(options)
     {
-        optionsBuilder.UseSqlite("Data Source=..\\WeatherForecast.Data\\WeatherForecast.db");
     }
+
+ //   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+ //   {
+ //       optionsBuilder.UseSqlite("Data Source=..\\WeatherForecast.Data\\WeatherForecast.db");
+ //   }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 

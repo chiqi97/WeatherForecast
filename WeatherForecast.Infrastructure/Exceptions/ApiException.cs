@@ -7,4 +7,9 @@ public class ApiException : Exception
     {
         OutputMessage = outputMessage;
     }
+
+    public ApiException(string message) : base(message)
+    {
+        
+    }
 }

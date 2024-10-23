@@ -21,7 +21,7 @@ public class GeolocationController : ControllerBase
     [ProducesResponseType(typeof(GeoLocationDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetPreviouslyUsed(int pageNumber = 1, int pageSize= 10)
     {
-        var result = await _geoLocationService.GetPreviouslyUsed(pageNumber, pageSize);
+        var result = await _geoLocationService.GetPreviouslyUsedAsync(pageNumber, pageSize);
         return Ok(result);
     }
 }

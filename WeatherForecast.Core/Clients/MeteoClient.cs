@@ -23,7 +23,7 @@ public class MeteoClient : IMeteoClient
         _configuration = configuration.Value;
     }
 
-    public async Task<Models.Clients.MeteoClient.WeatherForecast?> GetWeatherForecastAsync(AddWeatherForecast addWeatherForecast)
+    public async Task<Models.Clients.MeteoClient.MeteoWeatherForecast?> GetWeatherForecastAsync(AddWeatherForecast addWeatherForecast)
     {
         var restRequest = new RestRequest(_configuration.GetWeatherForecastPath, Method.Get);
         restRequest.AddQueryParameter("latitude", addWeatherForecast.Latitude.ToString());
@@ -37,6 +37,6 @@ public class MeteoClient : IMeteoClient
                 "Cannot get weather forecast!");
         }
 
-        return _jsonHelper.Deserialize<Models.Clients.MeteoClient.WeatherForecast>(restResponse.Content);
+        return _jsonHelper.Deserialize<Models.Clients.MeteoClient.MeteoWeatherForecast>(restResponse.Content);
     }
 }
