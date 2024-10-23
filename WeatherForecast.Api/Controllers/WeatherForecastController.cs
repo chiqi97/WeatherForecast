@@ -35,6 +35,7 @@ public class WeatherForecastController : ControllerBase
     
     [HttpGet]
     [Produces("application/json")]
+    [Route("{id:int}")]
     [ProducesResponseType(typeof(WeatherForecastDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get(int id)
     {
