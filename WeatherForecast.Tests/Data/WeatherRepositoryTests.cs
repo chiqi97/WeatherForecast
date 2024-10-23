@@ -123,10 +123,10 @@ public class WeatherRepositoryTests
     public async Task DeleteAsync_WhenDoesNotExists_ShouldThrowEntityNotFoundEception()
     {
         // Arrange
-        var existingWeatherForecast = _dbContext.WeatherForecasts.First();
+        var notExistingId = 1231231;
 
         // Act
-        var act = async () => await _weatherRepository.DeleteAsync(existingWeatherForecast.Id);
+        var act = async () => await _weatherRepository.DeleteAsync(notExistingId);
 
         // Assert
         await act.Should().ThrowAsync<EntityNotFoundException>();

@@ -1,29 +1,13 @@
-
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
-using WeatherForecast.Core.Clients;
-using WeatherForecast.Core.Clients.Configuration;
-using WeatherForecast.Core.Clients.Providers;
-using WeatherForecast.Core.Helpers;
-using WeatherForecast.Core.Services;
 using WeatherForecast.Data.DbContext;
-using WeatherForecast.Data.Entities;
-using WeatherForecast.Data.Repositories;
 using WeatherForecastAPI.Middlewares;
+using WeatherForecastAPI.ServicesCollection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<ExceptionHandlingMiddleware>();
-builder.Services.AddSingleton<IRestClientProvider<MeteoConfiguration>, MeteoRestClientProvider>();
-builder.Services.AddScoped<IWeatherRepository, WeatherRepository>();
-builder.Services.AddScoped<ICoordinateRepository, CoordinateRepository>();
-builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
-builder.Services.AddScoped<IGeoLocationService, GeoLocationService>();
-builder.Services.AddScoped<IMeteoClient, MeteoClient>();
-builder.Services.AddScoped<IJsonHelper, JsonHelper>();
-builder.Services.Configure<MeteoConfiguration>(builder.Configuration.GetSection("MeteoConfiguration"));
-builder.Services.AddEntityFrameworkSqlite().AddDbContext<WeatherForecastDbContext>();
+builder.Services.AddWeatherForecastServices(builder.Configuration);
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

@@ -14,10 +14,6 @@ public class WeatherForecastDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
     }
 
- //   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
- //   {
- //       optionsBuilder.UseSqlite("Data Source=..\\WeatherForecast.Data\\WeatherForecast.db");
- //   }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 

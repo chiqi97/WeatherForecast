@@ -25,7 +25,7 @@ public class ExceptionHandlingMiddlewareTests
         _logger = Substitute.For<ILogger<ExceptionHandlingMiddleware>>();
         _nextDelegateMock = Substitute.For<RequestDelegate>();
         _httpContext = new DefaultHttpContext();
-        _exceptionMiddleware = new ExceptionHandlingMiddleware(_logger, _nextDelegateMock);
+        _exceptionMiddleware = new ExceptionHandlingMiddleware(_logger);
     }
     
     [Test]
@@ -33,7 +33,7 @@ public class ExceptionHandlingMiddlewareTests
     {
         //Arrange
         // Act
-        await _exceptionMiddleware.InvokeAsync(_httpContext);
+        await _exceptionMiddleware.InvokeAsync(_httpContext, _nextDelegateMock);
 
         // Assert
         await _nextDelegateMock.Received(1).Invoke(_httpContext);
@@ -47,7 +47,7 @@ public class ExceptionHandlingMiddlewareTests
         _nextDelegateMock.Invoke(Arg.Any<HttpContext>()).Throws(apiException);
 
         // Act
-        await _exceptionMiddleware.InvokeAsync(_httpContext);
+        await _exceptionMiddleware.InvokeAsync(_httpContext, _nextDelegateMock);
 
         // Assert
         _httpContext.Response.StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
@@ -61,7 +61,7 @@ public class ExceptionHandlingMiddlewareTests
         _nextDelegateMock.Invoke(Arg.Any<HttpContext>()).Throws(ex);
 
         // Act
-        await _exceptionMiddleware.InvokeAsync(_httpContext);
+        await _exceptionMiddleware.InvokeAsync(_httpContext, _nextDelegateMock);
 
         // Assert
         _httpContext.Response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
@@ -75,7 +75,7 @@ public class ExceptionHandlingMiddlewareTests
         _nextDelegateMock.Invoke(Arg.Any<HttpContext>()).Throws(ex);
 
         // Act
-        await _exceptionMiddleware.InvokeAsync(_httpContext);
+        await _exceptionMiddleware.InvokeAsync(_httpContext, _nextDelegateMock);
 
         // Assert
         _httpContext.Response.StatusCode.Should().Be((int)HttpStatusCode.ServiceUnavailable);

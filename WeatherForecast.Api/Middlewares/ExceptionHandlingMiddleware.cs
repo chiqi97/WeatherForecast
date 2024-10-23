@@ -4,21 +4,19 @@ using WeatherForecast.Shared.Exceptions;
 
 namespace WeatherForecastAPI.Middlewares;
 
-public class ExceptionHandlingMiddleware
+public class ExceptionHandlingMiddleware : IMiddleware
 {
     private readonly ILogger<ExceptionHandlingMiddleware> _logger;
-    private readonly RequestDelegate _next;
-    public ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger, RequestDelegate next)
+    public ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddleware> logger)
     {
         _logger = logger;
-        _next = next;
     }
 
-    public async Task InvokeAsync(HttpContext context)
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         try
         {
-            await _next.Invoke(context);
+            await next.Invoke(context);
         }
         catch (ApiException e)
         {
@@ -43,4 +41,5 @@ public class ExceptionHandlingMiddleware
             await context.Response.WriteAsync("Something went wrong");
         }
     }
+    
 }
