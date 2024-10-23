@@ -11,8 +11,8 @@ using WeatherForecast.Data.DbContext;
 namespace WeatherForecast.Data.Migrations
 {
     [DbContext(typeof(WeatherForecastDbContext))]
-    [Migration("20241022212743_Initial")]
-    partial class Initial
+    [Migration("20241023070221_Initialv1")]
+    partial class Initialv1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,9 @@ namespace WeatherForecast.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("LastRequestTime")
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Latitude")
                         .HasColumnType("TEXT");

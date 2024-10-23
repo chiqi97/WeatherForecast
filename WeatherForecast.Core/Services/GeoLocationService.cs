@@ -17,7 +17,7 @@ public class GeoLocationService : IGeoLocationService
     public async Task<IList<GeoLocationDto>> GetPreviouslyUsed(int pageNumber = 1, int pageSize = 10)
     {
         var coordinates = await _coordinateRepository.GetQuery()
-            .OrderByDescending(x => x.Id)
+            .OrderByDescending(x => x.LastRequestTime)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .Select(c => new Coordinate()
@@ -25,6 +25,7 @@ public class GeoLocationService : IGeoLocationService
                 Id = c.Id,
                 Longitude = c.Longitude,
                 Latitude = c.Latitude,
+                LastRequestTime = c.LastRequestTime,
                 WeatherForecasts  = c.WeatherForecasts
                     .OrderByDescending(w => w.Time)
                     .ToList() 
@@ -39,6 +40,7 @@ public class GeoLocationService : IGeoLocationService
                 Id = x.Id,
                 Latitude = x.Latitude, 
                 Longitude = x.Longitude, 
+                LastRequestTime = x.LastRequestTime
             },
             WeatherForecast = x.WeatherForecasts.FirstOrDefault() != null ? new GeoLocationWeatherForecastDto()
             {

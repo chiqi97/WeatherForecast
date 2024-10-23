@@ -23,6 +23,9 @@ namespace WeatherForecast.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("LastRequestTime")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("Latitude")
                         .HasColumnType("TEXT");
 

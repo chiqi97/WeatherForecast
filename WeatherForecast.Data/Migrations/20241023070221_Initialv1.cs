@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WeatherForecast.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Initialv1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,8 @@ namespace WeatherForecast.Data.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Longitude = table.Column<decimal>(type: "TEXT", nullable: false),
-                    Latitude = table.Column<decimal>(type: "TEXT", nullable: false)
+                    Latitude = table.Column<decimal>(type: "TEXT", nullable: false),
+                    LastRequestTime = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -15,11 +15,12 @@ public class WeatherRepository : BaseRepository<Entities.WeatherForecast>, IWeat
         var existingCoordinate = await _context.Coordinates.FirstOrDefaultAsync(c => c.Longitude == longitude && c.Latitude == latitude);
         if (existingCoordinate == null)
         {
-            weatherForecastEntity.Coordinate = new Coordinate() {Latitude = latitude, Longitude = longitude};
+            weatherForecastEntity.Coordinate = new Coordinate() {Latitude = latitude, Longitude = longitude, LastRequestTime = TimeProvider.System.GetUtcNow().DateTime};
             return await AddEntityAsync(weatherForecastEntity);
         }
 
         weatherForecastEntity.CoordinateId = existingCoordinate.Id;
+        existingCoordinate.LastRequestTime = TimeProvider.System.GetUtcNow().DateTime;
         return await AddEntityAsync(weatherForecastEntity);
     }
 
