@@ -1,16 +1,16 @@
 # Introduction 
-Weather forecast api is used to handle geographic coordinates and weather forecast for them.
-The project is configured to automatically run the migration and create an instance of the SQLite database after it is built.
-You can also build the project using dockerfile
+The Weather Forecast API is designed to manage geographic coordinates and provide weather forecasts for them. 
+The project is configured to automatically run database migrations and create an instance of the SQLite database upon build. You can also build and run the project using Docker.
 
 # How to run project? By Docker
-1. Open cmd and go to your local path where Dockerfile is located. (for example - cd C:\Users\CezaryZysk\RiderProjects\WeatherForecast)
-2. Build the docker image with the script: "docker build -t weather-forecast ."
-3. Start the docker container with the command: "docker run -p 9084:9084 weather-forecast"
-4. If port 9084 on your computer is occupied please change it in DockerFile and then in the docker run command.
+1. Open a command prompt and navigate to the directory where the Dockerfile is located. (for example - cd C:\Users\CezaryZysk\RiderProjects\WeatherForecast)
+2. Build the Docker image using the following command: "docker build -t weather-forecast ."
+3. Start the Docker container with this command: "docker run -p 9084:9084 weather-forecast"
+4. If port 9084 on your machine is occupied, you can change the port in the Dockerfile, and update the port in the docker run command accordingly.
 
 # How to run project? BY IDE
-1. The project should automatically create a database in the WeatherForecast.Data project when it is built.
+1.  The project is configured to automatically create a SQLite database in the WeatherForecast.Data project when it is built in your IDE.
+    Simply build and run the project, and the necessary database will be generated automatically.
 
 
 
