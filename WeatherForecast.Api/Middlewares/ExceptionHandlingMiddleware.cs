@@ -30,7 +30,7 @@ public class ExceptionHandlingMiddleware : IMiddleware
         }
         catch (SqliteException e)
         {
-            _logger.LogError(e, $"[SqliteException] - {e.Message}");
+            _logger.LogError(e, "[SqliteException] - {Message}", e.Message);
             context.Response.StatusCode = (int)HttpStatusCode.ServiceUnavailable;
             await context.Response.WriteAsync("We have problems with connection to database!");
         }

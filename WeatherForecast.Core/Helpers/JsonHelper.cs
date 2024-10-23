@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Xml;
 
 namespace WeatherForecast.Core.Helpers;
@@ -14,11 +15,6 @@ public class JsonHelper : IJsonHelper
             PropertyNameCaseInsensitive = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
-    }
-
-    public string Serialize(object obj)
-    {
-        return JsonSerializer.Serialize(obj, _serializeSettings);
     }
 
     public T? Deserialize<T>(string? json)

@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using WeatherForecast.Core.Clients.Configuration;

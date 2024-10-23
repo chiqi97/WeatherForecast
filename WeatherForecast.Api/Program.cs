@@ -13,8 +13,7 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        options.JsonSerializerOptions.PropertyNamingPolicy=JsonNamingPolicy.CamelCase;
-        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -26,7 +25,7 @@ app.UseSwaggerUI();
 
 using var scope = app.Services.CreateScope();
 var db = scope.ServiceProvider.GetRequiredService<WeatherForecastDbContext>();
-db.Database.Migrate();
+await db.Database.MigrateAsync();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
@@ -36,4 +35,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Globalization;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Options;
 using RestSharp;
@@ -23,12 +24,12 @@ public class MeteoClient : IMeteoClient
         _configuration = configuration.Value;
     }
 
-    public async Task<Models.Clients.MeteoClient.MeteoWeatherForecast?> GetWeatherForecastAsync(AddWeatherForecast addWeatherForecast)
+    public async Task<Models.Clients.MeteoClient.MeteoWeatherForecast?> GetWeatherForecastAsync(AddWeatherForecast weatherForecast)
     {
         var restRequest = new RestRequest(_configuration.GetWeatherForecastPath, Method.Get);
-        restRequest.AddQueryParameter("latitude", addWeatherForecast.Latitude.ToString());
-        restRequest.AddQueryParameter("longitude", addWeatherForecast.Longitude.ToString());
-        restRequest.AddQueryParameter("current", addWeatherForecast.Current.ToString());
+        restRequest.AddQueryParameter("latitude", weatherForecast.Latitude.ToString("F9", CultureInfo.InvariantCulture));
+        restRequest.AddQueryParameter("longitude", weatherForecast.Longitude.ToString("F9", CultureInfo.InvariantCulture));
+        restRequest.AddQueryParameter("current", weatherForecast.Current.ToString());
         
         var restResponse = await _restClient.ExecuteAsync(restRequest);
         if (!restResponse.IsSuccessful)

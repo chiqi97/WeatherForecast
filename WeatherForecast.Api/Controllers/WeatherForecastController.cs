@@ -6,7 +6,7 @@ using WeatherForecast.Core.Services;
 namespace WeatherForecastAPI.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]/[action]")]
+[Route("api/v1/[controller]")]
 public class WeatherForecastController : ControllerBase
 {
     private readonly IWeatherForecastService _weatherForecastService;
