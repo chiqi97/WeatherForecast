@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\WeatherForecast.Data\WeatherForecast.Data.csproj" />
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
     </ItemGroup>
 
 
